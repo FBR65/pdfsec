@@ -1,0 +1,16 @@
+Name                      Stmts   Miss  Cover   Missing
+-------------------------------------------------------
+src/pdfsec/__init__.py        4      0   100%
+src/pdfsec/clipboard.py      18      0   100%
+src/pdfsec/core.py          134      3    98%   159-160, 192
+src/pdfsec/tui.py           132      0   100%
+tests/__init__.py             0      0   100%
+tests/conftest.py            21      0   100%
+tests/test_clipboard.py      45      0   100%
+tests/test_core.py          215      0   100%
+tests/test_entry.py          11      0   100%
+tests/test_messages.py       22      0   100%
+tests/test_paste.py          44      0   100%
+tests/test_tui.py           175      0   100%
+-------------------------------------------------------
+TOTAL                       821      3    99%

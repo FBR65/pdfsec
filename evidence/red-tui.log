@@ -1,0 +1,1160 @@
+~/Dokumente/dev/PDFSec/.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:306: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session". Set it to "fixture-scope" to keep the current behavior.
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+FFFFFFFFFF                                                               [100%]
+=================================== FAILURES ===================================
+___________________ test_widgets_present_and_password_masked ___________________
+
+    async def test_widgets_present_and_password_masked() -> None:
+        """T15: every widget from F2 exists and the password field is masked."""
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+            await pilot.pause()
+>           assert app.query_one("#mode", RadioSet).pressed_index == 0
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tui.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+selector = '#mode', expect_type = <class 'textual.widgets._radio_set.RadioSet'>
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#mode' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+    async def test_widgets_present_and_password_masked() -> None:
+        """T15: every widget from F2 exists and the password field is masked."""
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+________________ test_toggle_shows_password_and_resets_on_start ________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_toggle_shows_password_and0/vertrag.pdf')
+
+    async def test_toggle_shows_password_and_resets_on_start(plain_pdf: Path) -> None:
+        """T16: the toggle reveals the value; starting resets mask and clears the field."""
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+>           await pilot.click("#toggle-password")
+
+tests/test_tui.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/textual/pilot.py:238: in click
+    return await self._post_mouse_events(
+.venv/lib/python3.12/site-packages/textual/pilot.py:429: in _post_mouse_events
+    target_widget = screen.query_one(widget)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Screen(id='_default'), selector = '#toggle-password', expect_type = None
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#toggle-password' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_toggle_shows_password_and0/vertrag.pdf')
+
+    async def test_toggle_shows_password_and_resets_on_start(plain_pdf: Path) -> None:
+        """T16: the toggle reveals the value; starting resets mask and clears the field."""
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+______________________ test_empty_password_and_empty_list ______________________
+
+    async def test_empty_password_and_empty_list() -> None:
+        """T17: both empty inputs give their message and create nothing."""
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+>           await pilot.click("#start")
+
+tests/test_tui.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/textual/pilot.py:238: in click
+    return await self._post_mouse_events(
+.venv/lib/python3.12/site-packages/textual/pilot.py:429: in _post_mouse_events
+    target_widget = screen.query_one(widget)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Screen(id='_default'), selector = '#start', expect_type = None
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#start' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+    async def test_empty_password_and_empty_list() -> None:
+        """T17: both empty inputs give their message and create nothing."""
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+_______________________ test_batch_continues_after_error _______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_batch_continues_after_err0/vertrag.pdf')
+tmp_path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_batch_continues_after_err0')
+
+    async def test_batch_continues_after_error(plain_pdf: Path, tmp_path: Path) -> None:
+        """T18: 3 lines, one broken: two done, one error, totals in the status line."""
+        second = tmp_path / "anlage.pdf"
+        second.write_bytes(plain_pdf.read_bytes())
+        broken = tmp_path / "kaputt.pdf"
+        broken.write_text("kein PDF", encoding="utf-8")
+    
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+>           app.query_one("#paths", TextArea).text = "\n".join(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                [str(plain_pdf), str(broken), str(second)]
+            )
+
+tests/test_tui.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+selector = '#paths', expect_type = <class 'textual.widgets._text_area.TextArea'>
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#paths' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_batch_continues_after_err0/vertrag.pdf')
+tmp_path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_batch_continues_after_err0')
+
+    async def test_batch_continues_after_error(plain_pdf: Path, tmp_path: Path) -> None:
+        """T18: 3 lines, one broken: two done, one error, totals in the status line."""
+        second = tmp_path / "anlage.pdf"
+        second.write_bytes(plain_pdf.read_bytes())
+        broken = tmp_path / "kaputt.pdf"
+        broken.write_text("kein PDF", encoding="utf-8")
+    
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+_________________________ test_ui_recovers_after_error _________________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_ui_recovers_after_error0/vertrag.pdf')
+
+    async def test_ui_recovers_after_error(plain_pdf: Path) -> None:
+        """T19: after a failed run the app still works."""
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+>           app.query_one("#password", Input).value = ""
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tui.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+selector = '#password', expect_type = <class 'textual.widgets._input.Input'>
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#password' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_ui_recovers_after_error0/vertrag.pdf')
+
+    async def test_ui_recovers_after_error(plain_pdf: Path) -> None:
+        """T19: after a failed run the app still works."""
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:125: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+_____________________ test_quit_binding_and_german_footer ______________________
+
+    async def test_quit_binding_and_german_footer() -> None:
+        """T20: q quits, the footer text is German."""
+        descriptions = {binding.key: binding.description for binding in PdfSecApp.BINDINGS}
+>       assert descriptions["q"] == "Beenden"
+               ^^^^^^^^^^^^^^^^^
+E       KeyError: 'q'
+
+tests/test_tui.py:143: KeyError
+____________________ test_existing_target_reported_in_batch ____________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_existing_target_reported_0/vertrag.pdf')
+tmp_path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_existing_target_reported_0')
+
+    async def test_existing_target_reported_in_batch(plain_pdf: Path, tmp_path: Path) -> None:
+        """T21: an existing target is an error row, the other file still finishes."""
+        other = tmp_path / "anlage.pdf"
+        other.write_bytes(plain_pdf.read_bytes())
+        blocked = plain_pdf.with_name("vertrag_sec.pdf")
+        blocked.write_bytes(b"alte Datei")
+        before = file_hash(blocked)
+    
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+>           app.query_one("#paths", TextArea).text = f"{plain_pdf}\n{other}"
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tui.py:163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+selector = '#paths', expect_type = <class 'textual.widgets._text_area.TextArea'>
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#paths' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_existing_target_reported_0/vertrag.pdf')
+tmp_path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_existing_target_reported_0')
+
+    async def test_existing_target_reported_in_batch(plain_pdf: Path, tmp_path: Path) -> None:
+        """T21: an existing target is an error row, the other file still finishes."""
+        other = tmp_path / "anlage.pdf"
+        other.write_bytes(plain_pdf.read_bytes())
+        blocked = plain_pdf.with_name("vertrag_sec.pdf")
+        blocked.write_bytes(b"alte Datei")
+        before = file_hash(blocked)
+    
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+_______________________ test_work_runs_off_the_ui_thread _______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_work_runs_off_the_ui_thre0/vertrag.pdf')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x776393180fb0>
+
+    async def test_work_runs_off_the_ui_thread(plain_pdf: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        """T22: the core call runs in the worker thread, the status line is set."""
+        seen: dict[str, int] = {}
+    
+        def fake(path: Path | str, password: str) -> Result:
+            seen["thread"] = threading.get_ident()
+            target = Path(path).with_name("fake_sec.pdf")
+            return Result(source=Path(path), target=target, pages=7)
+    
+>       monkeypatch.setattr(tui, "encrypt_pdf", fake)
+E       AttributeError: <module 'pdfsec.tui' from '~/Dokumente/dev/PDFSec/src/pdfsec/tui.py'> has no attribute 'encrypt_pdf'
+
+tests/test_tui.py:186: AttributeError
+_____________________ test_duplicate_path_is_one_error_row _____________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_duplicate_path_is_one_err0/vertrag.pdf')
+
+    async def test_duplicate_path_is_one_error_row(plain_pdf: Path) -> None:
+        """T24: a path twice in the list is an error row, the file is handled once."""
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+>           app.query_one("#paths", TextArea).text = f"{plain_pdf}\n{plain_pdf}"
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tui.py:204: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+selector = '#paths', expect_type = <class 'textual.widgets._text_area.TextArea'>
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#paths' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_duplicate_path_is_one_err0/vertrag.pdf')
+
+    async def test_duplicate_path_is_one_error_row(plain_pdf: Path) -> None:
+        """T24: a path twice in the list is an error row, the file is handled once."""
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:203: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+_____________________ test_decrypt_mode_uses_core_decrypt ______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_decrypt_mode_uses_core_de0/vertrag.pdf')
+
+    async def test_decrypt_mode_uses_core_decrypt(plain_pdf: Path) -> None:
+        """T10 (UI path): mode Entschlüsseln writes the _open file."""
+        protected = core.encrypt_pdf(plain_pdf, PW).target
+    
+        app = PdfSecApp()
+        async with app.run_test() as pilot:
+>           select_decrypt(app)
+
+tests/test_tui.py:223: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_tui.py:37: in select_decrypt
+    app.query_one("#mode-decrypt", RadioButton).value = True
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+selector = '#mode-decrypt'
+expect_type = <class 'textual.widgets._radio_button.RadioButton'>
+
+    def query_one(
+        self,
+        selector: str | type[QueryType],
+        expect_type: type[QueryType] | None = None,
+    ) -> QueryType | Widget:
+        """Get a widget from this widget's children that matches a selector or widget type.
+    
+        Args:
+            selector: A selector or widget type.
+            expect_type: Require the object be of the supplied type, or None for any type.
+    
+        Raises:
+            WrongType: If the wrong type was found.
+            NoMatches: If no node matches the query.
+    
+        Returns:
+            A widget matching the selector.
+        """
+        _rich_traceback_omit = True
+    
+        base_node = self._get_dom_base()
+    
+        if isinstance(selector, str):
+            query_selector = selector
+        else:
+            query_selector = selector.__name__
+    
+        if is_id_selector(query_selector):
+            cache_key = (base_node._nodes._updates, query_selector, expect_type)
+            cached_result = base_node._query_one_cache.get(cache_key)
+            if cached_result is not None:
+                return cached_result
+            if (
+                node := walk_breadth_search_id(
+                    base_node, query_selector[1:], with_root=False
+                )
+            ) is not None:
+                if expect_type is not None and not isinstance(node, expect_type):
+                    raise WrongType(
+                        f"Node matching {query_selector!r} is the wrong type; expected type {expect_type.__name__!r}, found {node}"
+                    )
+                base_node._query_one_cache[cache_key] = node
+                return node
+>           raise NoMatches(f"No nodes match {query_selector!r} on {base_node!r}")
+E           textual.css.query.NoMatches: No nodes match '#mode-decrypt' on Screen(id='_default')
+
+.venv/lib/python3.12/site-packages/textual/dom.py:1505: NoMatches
+
+During handling of the above exception, another exception occurred:
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-3/test_decrypt_mode_uses_core_de0/vertrag.pdf')
+
+    async def test_decrypt_mode_uses_core_decrypt(plain_pdf: Path) -> None:
+        """T10 (UI path): mode Entschlüsseln writes the _open file."""
+        protected = core.encrypt_pdf(plain_pdf, PW).target
+    
+        app = PdfSecApp()
+>       async with app.run_test() as pilot:
+                   ^^^^^^^^^^^^^^
+
+tests/test_tui.py:222: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py:231: in __aexit__
+    await self.gen.athrow(value)
+.venv/lib/python3.12/site-packages/textual/app.py:2218: in run_test
+    raise self._exception
+.venv/lib/python3.12/site-packages/textual/app.py:3493: in _process_messages
+    await run_process_messages()
+.venv/lib/python3.12/site-packages/textual/app.py:3432: in run_process_messages
+    await self._dispatch_message(events.Compose())
+.venv/lib/python3.12/site-packages/textual/message_pump.py:727: in _dispatch_message
+    await self.on_event(message)
+.venv/lib/python3.12/site-packages/textual/app.py:4065: in on_event
+    await super().on_event(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:808: in on_event
+    await self._on_message(event)
+.venv/lib/python3.12/site-packages/textual/message_pump.py:829: in _on_message
+    await invoke(method, message)
+.venv/lib/python3.12/site-packages/textual/_callback.py:96: in invoke
+    return await _invoke(callback, *params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/_callback.py:58: in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/app.py:3548: in _on_compose
+    widgets = [*self.screen._nodes, *compose(self)]
+                                     ^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/textual/compose.py:48: in compose
+    compose_result if compose_result is not None else node.compose()
+                                                      ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PdfSecApp(title='PdfSecApp', classes={'-dark-mode'}, pseudo_classes={'dark', 'focus'})
+
+    def compose(self) -> object:
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/tui.py:12: NotImplementedError
+----------------------------- Captured stderr call -----------------------------
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ ~/Dokumente/dev/PDFSec/src/pdfsec/tui.py:12 in compose            │
+│                                                                              │
+│    9 │   """Placeholder so the tests fail on behaviour, not on import."""    │
+│   10 │                                                                       │
+│   11 │   def compose(self) -> object:                                        │
+│ ❱ 12 │   │   raise NotImplementedError                                       │
+│   13                                                                         │
+│                                                                              │
+│ ╭────────────────── locals ───────────────────╮                              │
+│ │ self = PdfSecApp(                           │                              │
+│ │        │   title='PdfSecApp',               │                              │
+│ │        │   classes={'-dark-mode'},          │                              │
+│ │        │   pseudo_classes={                 │                              │
+│ │        │   │   'dark',                      │                              │
+│ │        │   │   'focus'                      │                              │
+│ │        │   }                                │                              │
+│ │        )                                    │                              │
+│ ╰─────────────────────────────────────────────╯                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NotImplementedError
+10 failed in 1.23s

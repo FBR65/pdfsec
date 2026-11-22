@@ -1,0 +1,367 @@
+~/Dokumente/dev/PDFSec/.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:306: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session". Set it to "fixture-scope" to keep the current behavior.
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+FFFFFFFFFFFFFFFFF                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_encrypt_creates_protected_file ______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_encrypt_creates_protected0/vertrag.pdf')
+
+    def test_encrypt_creates_protected_file(plain_pdf: Path) -> None:
+        """T1: output exists, is encrypted, opens with the password, keeps page count."""
+>       result = encrypt_pdf(plain_pdf, PW)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_encrypt_creates_protected0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+______________________ test_output_rejects_empty_password ______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_output_rejects_empty_pass0/vertrag.pdf')
+
+    def test_output_rejects_empty_password(plain_pdf: Path) -> None:
+        """T2: the saved file does not open without the password."""
+>       target = encrypt_pdf(plain_pdf, PW).target
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_output_rejects_empty_pass0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+________________________ test_empty_password_is_refused ________________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_empty_password_is_refused0/vertrag.pdf')
+
+    def test_empty_password_is_refused(plain_pdf: Path) -> None:
+        """T3: empty password fails and writes nothing."""
+        with pytest.raises(EmptyPassword):
+>           encrypt_pdf(plain_pdf, "")
+
+tests/test_core.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_empty_password_is_refused0/vertrag.pdf')
+password = ''
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+_____________________ test_existing_target_is_not_touched ______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_existing_target_is_not_to0/vertrag.pdf')
+
+    def test_existing_target_is_not_touched(plain_pdf: Path) -> None:
+        """T4: an existing target raises and keeps its content."""
+        target = plain_pdf.with_name("vertrag_sec.pdf")
+        target.write_bytes(b"alte Datei")
+        before = file_hash(target)
+    
+        with pytest.raises(OutputExists):
+>           encrypt_pdf(plain_pdf, PW)
+
+tests/test_core.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_existing_target_is_not_to0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+_______________________ test_encrypted_input_is_refused ________________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_encrypted_input_is_refuse0/vertrag.pdf')
+
+    def test_encrypted_input_is_refused(plain_pdf: Path) -> None:
+        """T5: encrypting an already encrypted file fails and writes nothing."""
+>       protected = encrypt_pdf(plain_pdf, PW).target
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_encrypted_input_is_refuse0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+________________________ test_umlaut_password_roundtrip ________________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_umlaut_password_roundtrip0/vertrag.pdf')
+
+    def test_umlaut_password_roundtrip(plain_pdf: Path) -> None:
+        """T6: a password with umlauts works in both directions."""
+        password = "Grüße-2026-äöüß"
+>       protected = encrypt_pdf(plain_pdf, password).target
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_umlaut_password_roundtrip0/vertrag.pdf')
+password = 'Grüße-2026-äöüß'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+___________________________ test_non_pdf_is_invalid ____________________________
+
+text_file = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_non_pdf_is_invalid0/notiz.pdf')
+
+    def test_non_pdf_is_invalid(text_file: Path) -> None:
+        """T7: a text file is reported as not a PDF, no temporary file stays."""
+        with pytest.raises(InvalidPdf) as info:
+>           encrypt_pdf(text_file, PW)
+
+tests/test_core.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_non_pdf_is_invalid0/notiz.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+_________________________ test_missing_file_is_invalid _________________________
+
+tmp_path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_missing_file_is_invalid0')
+
+    def test_missing_file_is_invalid(tmp_path: Path) -> None:
+        """T7: a missing path is reported with its own reason."""
+        with pytest.raises(InvalidPdf) as info:
+>           encrypt_pdf(tmp_path / "weg.pdf", PW)
+
+tests/test_core.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_missing_file_is_invalid0/weg.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+_________________________ test_directory_is_not_a_file _________________________
+
+tmp_path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_directory_is_not_a_file0')
+
+    def test_directory_is_not_a_file(tmp_path: Path) -> None:
+        """T7: a directory is reported with its own reason."""
+        with pytest.raises(InvalidPdf) as info:
+>           encrypt_pdf(tmp_path, PW)
+
+tests/test_core.py:125: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_directory_is_not_a_file0')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+____________________ test_read_only_directory_fails_cleanly ____________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_read_only_directory_fails0/vertrag.pdf')
+
+    def test_read_only_directory_fails_cleanly(plain_pdf: Path) -> None:
+        """T8: no write permission gives OSError, no temporary file, no output."""
+        os.chmod(plain_pdf.parent, 0o500)
+        try:
+            with pytest.raises(OSError) as info:
+>               encrypt_pdf(plain_pdf, PW)
+
+tests/test_core.py:135: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_read_only_directory_fails0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+______________________________ test_target_names _______________________________
+
+tmp_path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_target_names0')
+
+    def test_target_names(tmp_path: Path) -> None:
+        """T9: target names follow the SPEC for both modes."""
+>       assert target_for(tmp_path / "a.pdf", encrypt=True) == tmp_path / "a_sec.pdf"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:145: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_target_names0/a.pdf')
+encrypt = True
+
+    def target_for(path: Path, encrypt: bool) -> Path:
+        """Build the target path for one input file."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:66: NotImplementedError
+_______________________ test_decrypt_removes_protection ________________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_decrypt_removes_protectio0/vertrag.pdf')
+
+    def test_decrypt_removes_protection(plain_pdf: Path) -> None:
+        """T10: decrypt writes an unprotected copy with the same page count."""
+>       protected = encrypt_pdf(plain_pdf, PW).target
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_decrypt_removes_protectio0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+_______________________ test_decrypt_with_wrong_password _______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_decrypt_with_wrong_passwo0/vertrag.pdf')
+
+    def test_decrypt_with_wrong_password(plain_pdf: Path) -> None:
+        """T11: a wrong password is reported and writes nothing."""
+>       protected = encrypt_pdf(plain_pdf, PW).target
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_decrypt_with_wrong_passwo0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+________________________ test_decrypt_unprotected_file _________________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_decrypt_unprotected_file0/vertrag.pdf')
+
+    def test_decrypt_unprotected_file(plain_pdf: Path) -> None:
+        """T12: decrypting an unprotected file is refused."""
+        with pytest.raises(NotEncrypted):
+>           decrypt_pdf(plain_pdf, PW)
+
+tests/test_core.py:178: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_decrypt_unprotected_file0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def decrypt_pdf(path: Path | str, password: str) -> Result:
+        """Remove the password from one PDF and write <stem>_open.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:61: NotImplementedError
+_______________________ test_failed_encrypt_verification _______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_failed_encrypt_verificati0/vertrag.pdf')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x737fc76f1550>
+
+    def test_failed_encrypt_verification(plain_pdf: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        """T13: a failed check removes the temporary file and writes nothing."""
+    
+        def boom(path: Path, password: str) -> None:
+            raise VerificationFailed(path.name)
+    
+>       monkeypatch.setattr(core, "_verify_encrypted", boom)
+E       AttributeError: <module 'pdfsec.core' from '~/Dokumente/dev/PDFSec/src/pdfsec/core.py'> has no attribute '_verify_encrypted'
+
+tests/test_core.py:189: AttributeError
+_______________________ test_failed_decrypt_verification _______________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_failed_decrypt_verificati0/vertrag.pdf')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x737fc76f1e50>
+
+    def test_failed_decrypt_verification(plain_pdf: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        """T14: the same for the decrypt direction."""
+>       protected = encrypt_pdf(plain_pdf, PW).target
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:200: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_failed_decrypt_verificati0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+________________________ test_input_hash_never_changes _________________________
+
+plain_pdf = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_input_hash_never_changes0/vertrag.pdf')
+
+    def test_input_hash_never_changes(plain_pdf: Path) -> None:
+        """T23: every input keeps its hash, also on failures (IN2, Z8)."""
+        before = file_hash(plain_pdf)
+>       protected = encrypt_pdf(plain_pdf, PW).target
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_core.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('~/.hermes/cache/scratch/pytest-of-user/pytest-1/test_input_hash_never_changes0/vertrag.pdf')
+password = 'geheim-2026'
+
+    def encrypt_pdf(path: Path | str, password: str) -> Result:
+        """Encrypt one PDF and write it next to the input as <stem>_sec.pdf."""
+>       raise NotImplementedError
+E       NotImplementedError
+
+src/pdfsec/core.py:56: NotImplementedError
+17 failed in 0.12s

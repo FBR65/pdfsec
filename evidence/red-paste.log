@@ -1,0 +1,33 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+__________________________ test_paste_into_path_list ___________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x79627d6f6990>
+
+    async def test_paste_into_path_list(monkeypatch: pytest.MonkeyPatch) -> None:
+        """F29: the copied path lands in the path list."""
+>       monkeypatch.setattr(tui, "read_clipboard", lambda: "/tmp/eingefuegt.pdf")
+E       AttributeError: <module 'pdfsec.tui' from '~/Dokumente/dev/PDFSec/src/pdfsec/tui.py'> has no attribute 'read_clipboard'
+
+tests/test_paste.py:25: AttributeError
+________________________ test_paste_into_password_field ________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x79627d6f6e40>
+
+    async def test_paste_into_password_field(monkeypatch: pytest.MonkeyPatch) -> None:
+        """F29: a single-line paste also works in the password field."""
+>       monkeypatch.setattr(tui, "read_clipboard", lambda: "Geheim-2026\n")
+E       AttributeError: <module 'pdfsec.tui' from '~/Dokumente/dev/PDFSec/src/pdfsec/tui.py'> has no attribute 'read_clipboard'
+
+tests/test_paste.py:37: AttributeError
+___________________ test_paste_without_clipboard_shows_hint ____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x79627d6f65a0>
+
+    async def test_paste_without_clipboard_shows_hint(monkeypatch: pytest.MonkeyPatch) -> None:
+        """F29: an unreadable clipboard gives a German hint, nothing is inserted."""
+>       monkeypatch.setattr(tui, "read_clipboard", lambda: None)
+E       AttributeError: <module 'pdfsec.tui' from '~/Dokumente/dev/PDFSec/src/pdfsec/tui.py'> has no attribute 'read_clipboard'
+
+tests/test_paste.py:49: AttributeError
+3 failed in 0.20s

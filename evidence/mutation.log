@@ -1,0 +1,8 @@
+KILLED   leeres Passwort wird durchgelassen  [1 failed, 49 passed in 10.87s]
+KILLED   Zielnamen vertauscht  [9 failed, 41 passed in 10.77s]
+KILLED   os.replace statt os.link (ueberschreibt still)  [4 failed, 46 passed in 10.78s]
+KILLED   Pruefung: Datei ohne Passwort oeffnet, wird nicht gemeldet  [1 failed, 49 passed, 1 warning in 10.77s]
+KILLED   Pruefung: verschluesselte Ausgabe gilt als entschluesselt  [1 failed, 49 passed in 10.59s]
+KILLED   Statuszeile zaehlt einen Fehler zu viel  [6 failed, 44 passed in 11.17s]
+
+6/6 Mutanten getoetet

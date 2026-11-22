@@ -1,0 +1,24 @@
+ PDFSec — PDF verschlüsseln und entschlüsseln
+ Modus
+ ▊▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▎
+ ▊ ▐●▌ Verschlüsseln                                                          ▎
+ ▊ ▐●▌ Entschlüsseln                                                          ▎
+ ▊▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▎
+ PDF-Dateien (eine pro Zeile)
+ ╭────────────────────────────────────────────────────────────────────────────╮
+ │ ~/.hermes/cache/scratch/pdfsec-real/gasthaus.pdf                │
+ │ ~/.hermes/cache/scratch/pdfsec-real/woerterbuch.pdf             │
+ │                                                                            │
+ ╰────────────────────────────────────────────────────────────────────────────╯
+ Passwort
+ ▊▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▎ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+ ▊  Passwort                             ▎  Passwort anzeigen       Start
+ ▊▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▎ ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+ ╭────────────────────────────────────────────────────────────────────────────╮
+ │ Datei                     Ergebnis   Ziel / Meldung                        │
+ │ ~/.hermes/cac  Fertig     gasthaus_sec.pdf — ~/.herme│
+ │ ~/.hermes/cac  Fertig     woerterbuch_sec.pdf — ~/.he│
+ │                                                                            │
+ ╰────────────────────────────────────────────────────────────────────────────╯
+ 2 von 2 fertig, 0 Fehler
+  ^q Beenden

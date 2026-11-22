@@ -1,0 +1,28 @@
+Verzeichnis ~/.hermes/cache/scratch/pdfsec-real
+gasthaus_sec.pdf:
+  Rechte            0o600
+  Seiten            2
+  Quelle Seiten     2
+  oeffnet ohne PW   nein
+  is_encrypted      True
+  erwartet          verschluesselt
+  Ergebnis          OK
+gasthaus_sec_open.pdf:
+  Rechte            0o600
+  Seiten            2
+  Quelle Seiten     2
+  oeffnet ohne PW   ja
+  is_encrypted      False
+  erwartet          offen
+  Ergebnis          OK
+woerterbuch_sec.pdf:
+  Rechte            0o600
+  Seiten            1
+  Quelle Seiten     1
+  oeffnet ohne PW   nein
+  is_encrypted      True
+  erwartet          verschluesselt
+  Ergebnis          OK
+Temp-Dateien      keine
+
+4 von 4 Pruefungen OK
